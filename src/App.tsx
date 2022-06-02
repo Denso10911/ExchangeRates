@@ -1,14 +1,20 @@
 import React from "react";
-import Card, { CardVariant } from "./components/Card";
+import { Routes, Route } from "react-router-dom";
+import Header from "./modules/dashboard/components/Header";
+import Rates from "./modules/rates/components/Rates";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className='App' style={{ color: "red" }}>
-      <Card width={"150px"} height={"150px"} variant={CardVariant.outlined}>
-        <button>Sell</button>
-      </Card>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path='/rates' element={<Rates />} />
+        <Route path='/converter' element={"converter"} />
+        <Route path='/history' element={"history"} />
+        <Route path='/' element={<Rates />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
