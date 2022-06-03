@@ -17,7 +17,7 @@ const RatesTitle: React.FC = () => {
           textDecoration: "none",
         }}
       >
-        Currency exchange rate for today
+        Курс обміну валют на сьогодні
       </Typography>
       <Typography
         variant='h5'
@@ -32,7 +32,7 @@ const RatesTitle: React.FC = () => {
           textDecoration: "none",
         }}
       >
-        Exchange rate in Ukraine
+        Курс валют в Україні
       </Typography>
     </>
   );

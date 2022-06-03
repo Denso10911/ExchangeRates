@@ -16,7 +16,11 @@ const NavLinkWraper = styled(NavLink)(() => ({
   fontWeight: "bold",
   textDecoration: "none",
 }));
-const pages = ["rates", "converter", "history"];
+const pages = [
+  { nav: "rates", name: "курс валют" },
+  { nav: "converter", name: "конвертер" },
+  { nav: "history", name: "історія" },
+];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -80,9 +84,11 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.nav} onClick={handleCloseNavMenu}>
                   <Typography textAlign='center'>
-                    <NavLinkWraper to={`/${page}`}>{page}</NavLinkWraper>
+                    <NavLinkWraper to={`/${page.nav}`}>
+                      {page.name}
+                    </NavLinkWraper>
                   </Typography>
                 </MenuItem>
               ))}
@@ -115,11 +121,11 @@ const Header = () => {
           >
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.nav}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <NavLinkWraper to={`/${page}`}>{page}</NavLinkWraper>
+                <NavLinkWraper to={`/${page.nav}`}>{page.name}</NavLinkWraper>
               </Button>
             ))}
           </Box>

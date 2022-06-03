@@ -1,9 +1,14 @@
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import React from "react";
 import RateTabs from "./RateTabs";
 import RatesTitle from "./RatesTitle";
+import { AllRatesTab } from "../models";
 
-const Rates: React.FC = () => {
+type RatesProps = {
+  allRatesTab: AllRatesTab[];
+};
+
+const Rates: React.FC<RatesProps> = ({ allRatesTab }) => {
   return (
     <Container
       maxWidth='xl'
@@ -14,7 +19,7 @@ const Rates: React.FC = () => {
       }}
     >
       <RatesTitle />
-      <RateTabs />
+      <RateTabs allRatesTab={allRatesTab} />
     </Container>
   );
 };
