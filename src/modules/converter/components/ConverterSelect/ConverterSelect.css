@@ -1,0 +1,65 @@
+.select {
+  position: relative;
+}
+
+.select__btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: 70px;
+  border: none;
+  top: -42px;
+  right: 10px;
+}
+
+.select__icon {
+  margin-left: 10px;
+  height: 10px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  transform: rotate(180deg);
+}
+
+.select__icon.open {
+  transform: rotate(0deg);
+}
+.select__variants {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 250px;
+  height: 0px;
+  overflow-y: scroll;
+  transition: height 0.5s ease;
+}
+
+.select__variants.open {
+  height: 250px;
+}
+
+.select__el {
+  border-bottom: 1px solid rgb(121, 121, 121);
+}
+
+.select__btn_el {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  width: 100%;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.select__abbrev_el {
+  width: 15%;
+  text-align: left;
+}
+
+.select__fullName {
+  width: 80%;
+  text-align: left;
+}

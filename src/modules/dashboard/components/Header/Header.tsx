@@ -85,11 +85,9 @@ const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page.nav} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>
-                    <NavLinkWraper to={`/${page.nav}`}>
-                      {page.name}
-                    </NavLinkWraper>
-                  </Typography>
+                  <NavLinkWraper to={`/${page.nav}`}>
+                    <Typography textAlign='center'>{page.name}</Typography>
+                  </NavLinkWraper>
                 </MenuItem>
               ))}
             </Menu>
@@ -120,13 +118,14 @@ const Header = () => {
             }}
           >
             {pages.map((page) => (
-              <Button
-                key={page.nav}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                <NavLinkWraper to={`/${page.nav}`}>{page.name}</NavLinkWraper>
-              </Button>
+              <NavLinkWraper to={`/${page.nav}`} key={page.nav}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.name}
+                </Button>
+              </NavLinkWraper>
             ))}
           </Box>
         </Toolbar>

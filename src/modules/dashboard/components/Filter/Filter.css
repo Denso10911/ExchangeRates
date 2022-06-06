@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  color: white;
+  background-color: rgb(116, 98, 253);
+}
+
+.header__rates {
+  display: flex;
+  gap: 20px;
+}
+
+.header__rate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
