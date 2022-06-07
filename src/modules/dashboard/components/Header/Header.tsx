@@ -86,7 +86,9 @@ const Header = () => {
               {pages.map((page) => (
                 <MenuItem key={page.nav} onClick={handleCloseNavMenu}>
                   <NavLinkWraper to={`/${page.nav}`}>
-                    <Typography textAlign='center'>{page.name}</Typography>
+                    <Typography textAlign='center' style={{ color: "#1976d2" }}>
+                      {page.name.toUpperCase()}
+                    </Typography>
                   </NavLinkWraper>
                 </MenuItem>
               ))}

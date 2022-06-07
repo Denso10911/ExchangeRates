@@ -10,59 +10,58 @@ import React, { useEffect, useState } from "react";
 import { historyAPI, HistoryParams } from "../../../../api/api";
 import History from "./History";
 import "./History.css";
+import Loading from "../../../dashboard/components/Loading/Loading";
+import { historyRates } from "../../models";
 
 const HistoryContainer: React.FC = () => {
   const [params, setParams] = useState<HistoryParams>({
     name: "usd",
-    dates: [
-      "20220101",
-      "20220102",
-      "20220103",
-      "20220104",
-      "20220105",
-      "20220106",
-      "20220107",
-    ],
+    days: ["20220101"],
   });
 
-  const [historyRates, setHistoryRates] = useState([
+  const [historyRates, setHistoryRates] = useState<historyRates[]>([
     { x: "01.01.2022", y: 35.35 },
   ]);
   const [name, setName] = React.useState("USD");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event: SelectChangeEvent) => {
     setName(event.target.value as string);
   };
 
   const countRatesHandler = (num: number) => {
-    let dateArr = [];
-    let date = new Date();
-    for (let i: number = 0; i <= num; i++) {
-      dateArr.push(
-        `${date.getFullYear()}${date.getMonth() + 1}${date.getDate() - i}`
-      );
-      console.log(dateArr);
+    setLoading(true);
+    let daysArr = [];
+    let today = Date.now();
+    for (let i: number = 0; i < num; i++) {
+      let fullDay = new Date(today - i * 86400000);
+      let day = ("0" + fullDay.getDate()).slice(-2);
+      let month = ("0" + (fullDay.getMonth() + 1)).slice(-2);
+      let year = fullDay.getFullYear();
+      daysArr.push(`${year}${month}${day}`);
     }
-  };
-  debugger;
-  useEffect(() => {
-    let res: { x: string; y: number }[] = [];
-    let resp = historyAPI.getHistory(params);
-    let test = resp.forEach((el) => {
-      el.then((response) =>
-        res.push({
-          x: response.data[0].exchangedate,
-          y: response.data[0].rate,
-        })
-      );
+    setParams({
+      name,
+      days: daysArr,
     });
-    console.log(test);
+  };
 
+  const fetchData = async (name: string, days: string[]) => {
+    let res: historyRates[] = [];
+    for (let i: number = 0; i < days.length; i++) {
+      let data = await historyAPI.getHistory(name, days[i]);
+      await res.push({ x: data.data[0].exchangedate, y: data.data[0].rate });
+    }
+    await setLoading(false);
     setHistoryRates(res);
+  };
+
+  useEffect(() => {
+    fetchData(params.name, params.days);
   }, [params]);
 
   return (
-    <div style={{ height: "300px" }}>
+    <div style={{ height: "350px" }}>
       <div className='params'>
         <FormControl fullWidth>
           <InputLabel id='demo-simple-select-label'>Валюта</InputLabel>
@@ -83,13 +82,23 @@ const HistoryContainer: React.FC = () => {
           onClick={() => {
             countRatesHandler(7);
           }}
+          disabled={loading}
         >
           Тиждень
         </Button>
-        <Button variant='outlined'>Місяць</Button>
-        <Button variant='outlined'>Рік</Button>
+        <Button
+          variant='outlined'
+          onClick={() => {
+            countRatesHandler(30);
+          }}
+          disabled={loading}
+        >
+          Місяць
+        </Button>
       </div>
-      <History historyRates={historyRates} />
+
+      {loading && <Loading />}
+      {!loading && <History historyRates={historyRates} />}
     </div>
   );
 };

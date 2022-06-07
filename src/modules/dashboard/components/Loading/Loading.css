@@ -1,0 +1,5 @@
+.loading {
+  position: absolute;
+  left: calc((100% - 64px) / 2);
+  top: 230px;
+}
